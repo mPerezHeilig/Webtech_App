@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+dist/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Ignore package-lock.json or yarn.lock if using npm or yarn
+package-lock.json
+
+# Optional: Ignore IDE/editor specific files
+.vscode/
+
+# Optional: macOs related files
+.DS_Store

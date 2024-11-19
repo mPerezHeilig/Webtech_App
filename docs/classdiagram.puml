@@ -1,0 +1,65 @@
+bearbeitet von Marcia Perez Heilig
+
+@startuml
+hide empty members
+skin rose
+
+class Trip {
+    -id: String
+    -dest_country: Country
+    -duration: TravelTime
+    -tourguide: Tourguide
+    constructor(id: String, dest_country: String, duration: TravelTime, tourguide: Tourguide)
+    +get id(): String
+    +get dest_country(): Country
+    +get duration(): Number
+    +get tourguide(): Tourguide
+    +set id(id: String): Void
+    +set dest_country(country: Country): Void
+    +set duration(days: Number): Void
+    +set tourguide(tourguide: Tourguide): Void
+}
+
+class Country {
+    -name: String
+    -itinerary: Array<City>
+    constructor(name: String, itinerary: Array<City>)
+    +get name(): String
+    +get itinerary(): Array<City>
+    +add_cities(city: City): Void
+    +remove_city(city_name: String): Void
+}
+
+class City {
+    -name: String
+    -duration_of_stay: Number
+    constructor(name: String, duration_of_stay: Number)
+    +get name(): String
+    +get duration_of_stay(): Number
+    +set duration_of_stay(days: Number): Void
+}
+
+class TravelTime {
+    -total_duration: Number
+    -trip_segments: Index Signature {[key: string]: number}
+    constructor(total_duration: Number, trip_segments: Index Signature {[key: string]: number})
+    +get total_duration(): Number
+    +get time_available(): Number
+    +set total_duration(): Void
+    +add_trip_segment(city: City): Void
+    +remove_trip_segment(city_name: String): Void
+}
+
+class Tourguide {
+    -id: String
+    constructor(id: String)
+    +get id(): String
+    +set id(id: String): Void
+}
+
+'Beziehungsarten anpassen'
+Trip --> "1" Country
+Country "1" --> "1..n" City
+Trip --> "1" TravelTime
+Trip --> "1" Tourguide
+@enduml
