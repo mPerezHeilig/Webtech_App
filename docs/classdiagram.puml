@@ -41,13 +41,12 @@ class City {
 
 class TravelTime {
     -total_duration: Number
-    -trip_segments: Index Signature {[key: string]: number}
-    constructor(total_duration: Number, trip_segments: Index Signature {[key: string]: number})
+    -trip_segments: Array<City>
+    constructor(total_duration: Number, trip_segments: Array<City>)
     +get total_duration(): Number
     +get time_available(): Number
     +set total_duration(): Void
-    +add_trip_segment(city: City): Void
-    +remove_trip_segment(city_name: String): Void
+    +update_duration(): Void
 }
 
 class Tourguide {
