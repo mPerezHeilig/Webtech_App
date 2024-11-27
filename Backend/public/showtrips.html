@@ -1,0 +1,64 @@
+<!-- bearbeitet von Marcia Perez Heilig -->
+
+<!-- Page showing the trips that have been created so far -->
+
+<html>
+    <head>
+        <title>Travel Planner - Show Trips</title>
+        <link rel="stylesheet" type="text/css" href="./css/default.css">
+    </head>
+    <body>
+        <div class="mother">
+            <h1>Travel Planner</h1>
+
+            <button>Load Trips</button>
+            
+            <div class="tripList">
+                <h2>Trip Collection</h2>
+            </div>
+
+            <div>
+                <a href="/index.html">Back</a>
+            </div>
+        </div>
+        
+        <!-- JavaScript for querying-->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const button = document.querySelector('button');
+                const tripList = document.querySelector('.tripList');
+
+                button.addEventListener('click', () => {
+                    axios.get('/api/showtrips')
+                        .then(response => {
+                            // Clear any existing content
+                            tripList.innerHTML = '';
+
+                            // Loop through each trip and create the HTML structure
+                            response.data.forEach(trip => {
+                                const listItem = document.createElement('div');
+                                listItem.className = "listItem";
+
+                                // Create and append elements for each property
+                                listItem.innerHTML = `
+                                    <p>ID: ${trip._id}</p>
+                                    <p>Departure Date: ${trip._departure_date}</p>
+                                    <p>Return Date: ${trip._return_date}</p>
+                                    <p>Country: ${trip._dest_country}</p>
+                                    <p>Tourguide: ${trip._tourguide}</p>
+                                    <button>Edit</button>
+                                    <button>Delete</button>
+                                `;
+
+                                tripList.appendChild(listItem);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error loading trips:', error);
+                        });
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!-- bearbeitet von Marcia Perez Heilig -->
+
+<!-- Page showing form for editing trip -->
+
+<html>
+    <head>
+        <title>Travel Planner - Edit Trip</title>
+        <link rel="stylesheet" type="text/css" href="./css/default.css">
+    </head>
+    <body>
+
+        <div class="mother">
+            <h1>Travel Planner</h1>
+            <h2>Edit Trip</h2>
+            
+            <form>
+                <label for="trip_id">ID:</label>
+                <input type="text" id="trip_id" name="trip_id" placeholder="Type name for your trip...">
+                <label for="departure_date">Departure Date:</label>
+                <input type="text" class="input_date" name="departure_date" placeholder="Month/Day/Year">
+                <label for="return_date">Departure Date:</label>
+                <input type="text" class="input_date" name="return_date" placeholder="Month/Day/Year">
+                <label for="country">Country:</label>
+                <select id="dogBreed" name="dogBreed">
+                    
+                    <option value="husky">Husky</option>
+                    <option value="bulldog">Bulldog</option>
+                    <option value="poodel">Poodle</option>
+                </select>
+                <button type="button" id="submitButton">Submit</button>
+            </form>
+    
+
+            <div>
+                <a href="/index.html">Back</a>
+            </div>
+
+        </div>
+        
+        <!-- JavaScript for querying-->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Select the form and the button
+                const form = document.getElementById('dogForm');
+                const submitButton = document.getElementById('submitButton');
+
+                submitButton.addEventListener('click', (event) => {
+                    // Prevent the form from submitting the traditional way
+                    event.preventDefault();
+                    // Gather form data
+                    const newDog = {
+                        name: document.getElementById('dogName').value,
+                        points: parseInt(document.getElementById('dogPoints').value),
+                        imagePath: document.getElementById('dogImage').value,
+                        breed: document.getElementById('dogBreed').value
+                    };
+                
+                    // Send data to server
+                    axios.post('/api/dogs', newDog)
+                        .then(response => {
+                            alert('New dog added successfully!');
+                            // Clear the form
+                            form.reset();
+                        })
+                        .catch(error => {
+                            console.error('Error adding new dog:', error);
+                        });
+                });
+            });
+        </script>
+
+    </body>
+</html>
