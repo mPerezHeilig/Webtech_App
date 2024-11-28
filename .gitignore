@@ -9,7 +9,8 @@ build/
 # Ignore package-lock.json or yarn.lock if using npm or yarn
 package-lock.json
 
-
+# Ignore .env so own port can be accessed
+.env
 
 # Optional: Ignore IDE/editor specific files
 .vscode/
