@@ -63,6 +63,10 @@ export class Trip {
         this._tourguide = new_tourguide;
     }
 
+    public static resetCurrentId() {
+        Trip.current_id = 0;
+    }
+
     add_city(new_city: City): void {
         this._cities.push(new_city);
     }

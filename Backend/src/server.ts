@@ -3,10 +3,11 @@
 import dotenv from 'dotenv';
 import app from './app';
 
-dotenv.config();
+dotenv.config(); // load environment variables
 
-const port = process.env.PORT;
+const port = process.env.PORT; // set port from environment variables
 
+// start server
 app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`);
 });

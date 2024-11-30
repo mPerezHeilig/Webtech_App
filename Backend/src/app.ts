@@ -3,11 +3,11 @@
 import express, {Express} from 'express';
 import router from './routes/trip_routes';
 
-const app: Express = express();
+const app: Express = express(); // initialize Express application
 
-app.use(express.json());
+app.use(express.json()); // parse JSON bodies
 app.use("/", router);
-app.use(express.static('public'));
-app.use("/api", router);
+app.use(express.static('public')); // serve static files from the public directory
+
 
 export default app;

@@ -1,6 +1,6 @@
 <!-- bearbeitet von Marcia Perez Heilig -->
 
-<!-- Page showing form for editing trip -->
+<!-- Page showing form for editing an existing trip -->
 
 <html>
     <head>
@@ -8,64 +8,108 @@
         <link rel="stylesheet" type="text/css" href="./css/default.css">
     </head>
     <body>
+        <h1>Travel Planner</h1>
 
-        <div class="mother">
-            <h1>Travel Planner</h1>
-            <h2>Edit Trip</h2>
-            
-            <form>
-                <label for="trip_id">ID:</label>
-                <input type="text" id="trip_id" name="trip_id" placeholder="Type name for your trip...">
-                <label for="departure_date">Departure Date:</label>
-                <input type="text" class="input_date" name="departure_date" placeholder="Month/Day/Year">
-                <label for="return_date">Departure Date:</label>
-                <input type="text" class="input_date" name="return_date" placeholder="Month/Day/Year">
-                <label for="country">Country:</label>
-                <select id="dogBreed" name="dogBreed">
-                    
-                    <option value="husky">Husky</option>
-                    <option value="bulldog">Bulldog</option>
-                    <option value="poodel">Poodle</option>
-                </select>
-                <button type="button" id="submitButton">Submit</button>
+        <div class="displayCard">
+            <form class="tripForm">
+                <h2>Edit Trip</h2>
+
+                <div class="form-group">
+                    <label for="departure_date">Departure Date:</label>
+                    <input type="date" id="departure_date" name="departure_date">
+                </div>
+
+                <div class="form-group">
+                    <label for="return_date">Return Date:</label>
+                    <input type="date" id="return_date" name="return_date">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <select id="country" name="country">
+                        <option value="" disabled selected>Choose Country</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Germany">Germany</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tourguide">Tourguide:</label>
+                    <select id="tourguide" name="tourguide">
+                        <option value="" disabled selected>Choose Tourguide</option>
+                        <option value="Miguel">Miguel</option>
+                        <option value="Hans">Hans</option>
+                    </select>
+                <div class="form-group"></div>
+                
+                <div class="form-group">
+                    <button type="button" id="submitButton" class="alarmButton">Update Trip</button>
+                </div>
             </form>
-    
-
-            <div>
-                <a href="/index.html">Back</a>
-            </div>
-
         </div>
+
+        <a href="/index.html">Back</a>
+
         
         <!-- JavaScript for querying-->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                // Select the form and the button
-                const form = document.getElementById('dogForm');
-                const submitButton = document.getElementById('submitButton');
+            const form = document.querySelector('.tripForm');
+            const submitButton = document.getElementById('submitButton');
 
-                submitButton.addEventListener('click', (event) => {
-                    // Prevent the form from submitting the traditional way
-                    event.preventDefault();
-                    // Gather form data
-                    const newDog = {
-                        name: document.getElementById('dogName').value,
-                        points: parseInt(document.getElementById('dogPoints').value),
-                        imagePath: document.getElementById('dogImage').value,
-                        breed: document.getElementById('dogBreed').value
-                    };
-                
-                    // Send data to server
-                    axios.post('/api/dogs', newDog)
-                        .then(response => {
-                            alert('New dog added successfully!');
-                            // Clear the form
-                            form.reset();
-                        })
-                        .catch(error => {
-                            console.error('Error adding new dog:', error);
+            const loadTripData = (tripId) => {
+                axios.get(`/api/trips/${tripId}`)
+                    .then(response => {
+                        const trip = response.data;
+                        document.getElementById('departure_date').value = trip._departure_date;
+                        document.getElementById('return_date').value = trip._return_date;
+                        document.getElementById('country').value = trip._dest_country;
+                        document.getElementById('tourguide').value = trip._tourguide;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching trip data:', error);
+                        alert('Error loading trip details.');
+                    });
+            };
+        
+            const updateTrip = (tripId) => {
+                const updatedTrip = {
+                    departure_date: document.getElementById('departure_date').value,
+                    return_date: document.getElementById('return_date').value,
+                    dest_country: document.getElementById('country').value,
+                    tourguide: document.getElementById('tourguide').value,
+                };
+            
+                axios.put(`/api/trips/${tripId}`, updatedTrip)
+                    .then(() => {
+                        alert('Trip updated successfully!');
+                        window.location.href = '/showtrips.html'; // Redirect
+                    })
+                    .catch(error => {
+                        console.error('Error updating trip:', error);
+                        alert('Error updating trip.');
+                    });
+            };
+        
+            axios.get('/api/selectedTrip')
+                .then(response => {
+                    const tripId = response.data.tripId;
+                    if (tripId) {
+                        loadTripData(tripId);
+                    
+                        submitButton.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            updateTrip(tripId);
                         });
+                    } else {
+                        alert('No trip ID found. Redirecting to trips page.');
+                        window.location.href = '/showtrips.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error retrieving trip ID:', error);
+                    alert('Error initializing edit page.');
                 });
             });
         </script>

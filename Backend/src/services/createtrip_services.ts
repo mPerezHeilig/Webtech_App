@@ -9,7 +9,7 @@ export const addNewTrip = (json: any): Trip => {
     // Create a new Trip object
     const newTrip = new Trip(dest_country, departure_date, return_date, tourguide);
 
-    // Add the trip to the in-memory trips list
+    // Add the trip to the temporary trips list
     trips.push(newTrip);
 
     return newTrip; // Return the newly created trip
