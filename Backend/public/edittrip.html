@@ -11,9 +11,14 @@
         <h1>Travel Planner</h1>
 
         <div class="displayCard">
-            <h2>Create New Trip</h2>
+            <h2>Edit Trip</h2>
 
             <form class="tripForm">
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Name your Trip">
+                </div>
 
                 <div class="form-group">
                     <label for="departure_date">Departure Date:</label>
@@ -120,10 +125,12 @@
             const form = document.querySelector('.tripForm');
             const submitButton = document.getElementById('submitButton');
 
+            // Function to prefill the form inputs with trip data for specific trip by ID
             const loadTripData = (tripId) => {
                 axios.get(`/api/trips/${tripId}`)
                     .then(response => {
                         const trip = response.data;
+                        document.getElementById('name').value = trip._name;
                         document.getElementById('departure_date').value = trip._departure_date;
                         document.getElementById('return_date').value = trip._return_date;
                         document.getElementById('country').value = trip._dest_country;
@@ -134,9 +141,11 @@
                         alert('Error loading trip details.');
                     });
             };
-        
+            
+            // Function to update trip details
             const updateTrip = (tripId) => {
                 const updatedTrip = {
+                    name: document.getElementById('name').value,
                     departure_date: document.getElementById('departure_date').value,
                     return_date: document.getElementById('return_date').value,
                     dest_country: document.getElementById('country').value,
@@ -158,10 +167,12 @@
                 .then(response => {
                     const tripId = response.data.tripId;
                     if (tripId) {
+                        // Load data to prefill form inputs
                         loadTripData(tripId);
                     
                         submitButton.addEventListener('click', (event) => {
                             event.preventDefault();
+                            // Update trip details
                             updateTrip(tripId);
                         });
                     } else {

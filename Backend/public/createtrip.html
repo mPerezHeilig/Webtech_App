@@ -12,8 +12,13 @@
 
         <div class="displayCard">
             <h2>Create New Trip</h2>
-            
+
             <form class="tripForm">
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Name your Trip">
+                </div>
 
                 <div class="form-group">
                     <label for="departure_date">Departure Date:</label>
@@ -125,6 +130,7 @@
                     event.preventDefault();
                     // Gather form data
                     const newTrip = {
+                        name: document.getElementById('name').value,
                         dest_country: document.getElementById('country').value,
                         departure_date: document.getElementById('departure_date').value,
                         return_date: document.getElementById('return_date').value,

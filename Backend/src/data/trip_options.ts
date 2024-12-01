@@ -1,5 +1,6 @@
 // bearbeitet von Marcia Perez Heilig
 
+// Array containing all countries to choose from for a trip
 export const countries: Array<string> = [
     "Afghanistan",
     "Albania",
@@ -196,6 +197,7 @@ export const countries: Array<string> = [
     "Zimbabwe"
 ];
 
+// Array containing all tourguides to choose from for a trip
 export const tourguides: Array<string> = [
     "Miguel",
     "Hans",

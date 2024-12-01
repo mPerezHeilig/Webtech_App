@@ -13,7 +13,7 @@ export const fetchTripId = (): number | null => {
     return selectedTripId || null; // Return null if `selectedTripId` is undefined
 };
 
-export const updateTrip = (id: number, departure_date: string, return_date: string, dest_country: string, tourguide: string): Trip | null => {
+export const updateTrip = (id: number, name: string, departure_date: string, return_date: string, dest_country: string, tourguide: string): Trip | null => {
     const updatedTrip = trips.find(trip => trip.id === id);
 
     if (!updatedTrip) {
@@ -21,6 +21,7 @@ export const updateTrip = (id: number, departure_date: string, return_date: stri
     }
 
     // Apply updates to the trip
+    updatedTrip.name = name;
     updatedTrip.departure_date = departure_date;
     updatedTrip.return_date = return_date;
     updatedTrip.dest_country = dest_country;

@@ -3,16 +3,19 @@
 import {City} from "./city";
 
 export class Trip {
+    // ID to identify a specific trip
     private static current_id: number = 0;
 
     private _id: number;
+    private _name: string;
     private _dest_country: string;
     private _departure_date: string;
     private _return_date: string;
     private _cities: Array<City>;
     private _tourguide: string;
 
-    constructor(country: string, depature_date: string, return_date: string, tourguide: string){
+    constructor(name: string, country: string, depature_date: string, return_date: string, tourguide: string){
+        this._name = name;
         this._dest_country = country;
         this._departure_date = depature_date;
         this._return_date = return_date;
@@ -21,6 +24,10 @@ export class Trip {
         
         Trip.current_id++;
         this._id = Trip.current_id;
+    }
+
+    get name(): string {
+        return this._name;
     }
 
     get dest_country(): string {
@@ -47,6 +54,10 @@ export class Trip {
         return this._id;
     }
 
+    set name(new_name: string) {
+        this._name = new_name;
+    }
+
     set dest_country(new_country: string) {
         this._dest_country = new_country;
     }
@@ -63,7 +74,8 @@ export class Trip {
         this._tourguide = new_tourguide;
     }
 
-    public static resetCurrentId() {
+    // Function to reset the ID counter
+    public static resetCurrentId(): void {
         Trip.current_id = 0;
     }
 

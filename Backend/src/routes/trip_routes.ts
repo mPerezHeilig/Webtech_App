@@ -4,6 +4,7 @@ import express, { Request,Response } from 'express';
 import { listTrips, loadTrip, createTrip, editTrip, removeTrip, clearTrips, postTripId, loadTripId } from '../controllers/trip_controller';
 import { listCountries, listTourguides } from '../controllers/form_controllers';
 
+// Initialize Express Router
 const router = express.Router();
 
 // Load all trips
