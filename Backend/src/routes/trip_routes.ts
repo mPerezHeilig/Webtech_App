@@ -2,6 +2,7 @@
 
 import express, { Request,Response } from 'express';
 import { listTrips, loadTrip, createTrip, editTrip, removeTrip, clearTrips, postTripId, loadTripId } from '../controllers/trip_controller';
+import { listCountries, listTourguides } from '../controllers/form_controllers';
 
 const router = express.Router();
 
@@ -43,6 +44,16 @@ router.post('/api/selectedTrip', (req: Request, res: Response) => {
 // Route to get the saved selected trip ID
 router.get('/api/selectedTrip', (req: Request, res: Response) => {
     loadTripId(req, res);
+});
+
+// Route to get form country options
+router.get('/api/countries', (req: Request, res: Response) => {
+    listCountries(res);
+});
+
+// Route to get form tourguide options
+router.get('/api/tourguides', (req: Request, res: Response) => {
+    listTourguides(res);
 });
 
 export default router;

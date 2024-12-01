@@ -20,7 +20,6 @@
                 <a href="/createtrip.html">Create New Trip</a>
                 <button id="deleteAllButton" class="alarmButton">Delete All Trips</button>
             </div>
-
         </div>
         
         <a href="/index.html">Back</a>
@@ -30,6 +29,7 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+                // Select the tripList section and the deleteAllButton
                 const tripList = document.querySelector('.tripList');
                 const deleteAllButton = document.getElementById('deleteAllButton');
 
@@ -41,7 +41,7 @@
 
                             // Handle empty trips array
                             if (trips.length === 0) {
-                                tripList.innerHTML = '<p>No trips added yet.</p><p> Better start planning!</p>';
+                                tripList.innerHTML = '<p>No trips added yet.<br>Better start planning!</p>';
                                 deleteAllButton.style.display = 'none';
                                 return;
                             }
@@ -56,14 +56,15 @@
 
                                 // Create and append elements for each property
                                 listItem.innerHTML = `
-                                    <p>ID: ${trip._id}</p>
+                                    <p>Trip ${trip._id}</p>
                                     <p>Departure Date: ${trip._departure_date}</p>
                                     <p>Return Date: ${trip._return_date}</p>
                                     <p>Country: ${trip._dest_country}</p>
                                     <p>Tourguide: ${trip._tourguide}</p>
-                                    <button class="editButton">Edit</button>
+                                    <button class="editButton"><span class="editBtn"></span>Edit</button>
                                     <button class="deleteButton">Delete</button>
                                 `;
+
                                 // Add edit functionality
                                 const editButton = listItem.querySelector('.editButton');
                                 editButton.addEventListener('click', () => navigateToEditPage(trip._id));

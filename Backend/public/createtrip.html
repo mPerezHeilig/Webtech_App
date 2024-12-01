@@ -11,8 +11,9 @@
         <h1>Travel Planner</h1>
 
         <div class="displayCard">
+            <h2>Create New Trip</h2>
+            
             <form class="tripForm">
-                <h2>Create New Trip</h2>
 
                 <div class="form-group">
                     <label for="departure_date">Departure Date:</label>
@@ -40,10 +41,11 @@
                         <option value="Miguel">Miguel</option>
                         <option value="Hans">Hans</option>
                     </select>
-                <div class="form-group"></div>
+                </div>
                 
                 <div class="form-group">
                     <button type="button" id="submitButton" class="alarmButton">Add Trip</button>
+                    <a href="/showtrips.html">Show Trip Collection</a>
                 </div>
             </form>
         </div>
@@ -55,6 +57,65 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+
+                // Select the country selection inside the form
+                const country_select = document.getElementById('country');
+
+                //Function to fetch and display country options
+                const loadCountryOptions = () => {
+                    axios.get('api/countries')
+                        .then(response => {
+                            const countries = response.data;
+
+                            // Clear existing options except the default one
+                            country_select.innerHTML = '<option value="" disabled selected>Choose Country</option>';
+
+                            // Loop through all countries and create an select option for each one
+                            countries.forEach(country => {
+                                const country_option = document.createElement('option');
+                                country_option.value = country;
+                                country_option.textContent = country;
+                                country_select.appendChild(country_option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching countries:', error);
+                            alert('Failed to load country options.');
+                        });
+                };
+
+                // Load country options
+                loadCountryOptions();
+
+                // Select the tourguide selection inside the form
+                const tourguide_select = document.getElementById('tourguide');
+
+                //Function to fetch and display tourguide options
+                const loadTourguideOptions = () => {
+                    axios.get('api/tourguides')
+                        .then(response => {
+                            const tourguides = response.data;
+
+                            // Clear existing options except the default one
+                            tourguide_select.innerHTML = '<option value="" disabled selected>Choose Tourguide</option>';
+
+                            // Loop through all countries and create an select option for each one
+                            tourguides.forEach(tourguide => {
+                                const tourguide_option = document.createElement('option');
+                                tourguide_option.value = tourguide;
+                                tourguide_option.textContent = tourguide;
+                                tourguide_select.appendChild(tourguide_option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching tourguides:', error);
+                            alert('Failed to load tourguide options.');
+                        });
+                };
+
+                // Load tourguide options
+                loadTourguideOptions();
+
                 // Select the form and the button
                 const form = document.querySelector('.tripForm');
                 const submitButton = document.getElementById('submitButton');
