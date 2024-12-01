@@ -5,13 +5,20 @@ hide empty members
 skin rose
 
 class Trip {
+    -static current_id: number
+
     -id: number
+    -name: string
     -dest_country: string
     -departure_date: string
     -return_date: string
     -cities: Array<City>
     -tourguide: string
-    constructor(dest_country: string, departure_date: string, return_date: string, tourguide: string)
+    constructor(name: string, dest_country: string, departure_date: string, return_date: string, tourguide: string)
+    static resetCurrentId(): void
+
+}
+class Country {
 
 }
 
@@ -21,5 +28,11 @@ class City {
     constructor(name: string, duration_of_stay: number)
 }
 
-Trip "1" --> "1..n" City
+class Tourguide {
+
+}
+
+Trip "1" --> "1" Country
+Trip "1" --> "1" Tourguide
+Country "1" --> "1..n" City
 @enduml
