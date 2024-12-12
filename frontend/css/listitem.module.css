@@ -1,0 +1,9 @@
+/* bearbeitet von Marcia Perez Heilig */
+
+.listItem {
+    background-color: #FFFFF4;
+    text-align: left;
+    border-radius: 24px;
+    padding: 20px;
+    width: fit-content;
+}

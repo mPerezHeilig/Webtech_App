@@ -1,0 +1,20 @@
+/* bearbeitet Marcia Perez Heilig */
+
+.alarmButton, .deleteButton {
+    background-color: #FFA702;
+    color: #35421C;
+}
+
+/* Button section of the home page*/
+.starterBtns {
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.starterBtns a {
+    margin: 32px 0;
+}
