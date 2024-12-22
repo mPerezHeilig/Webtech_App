@@ -1,0 +1,22 @@
+/* bearbeitet von Marcia Perez Heilig */
+
+#header {
+    position:fixed-top;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#navBar {
+    display: flex;
+    align-items: center;
+}
+
+
+#home, .navLink {
+    color: #FFFFF4;
+    text-decoration: none;
+    border-radius: 41px;
+    margin: 20px;
+    padding: 10px 56px;
+}

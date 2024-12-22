@@ -1,5 +1,13 @@
 /* bearbeitet von Marcia Perez Heilig */
 
+.tripCollection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px;
+}
+
 .listItem {
     background-color: #FFFFF4;
     text-align: left;

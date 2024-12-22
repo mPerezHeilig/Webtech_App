@@ -1,10 +1,9 @@
 // bearbeitet von Marcia Perez Heilig
 
 import styles from "@/css/page.module.css";
-import DisplayCard from "@/components/DisplayCard";
-import Form from "@/components/Form";
+import Form from "@/components/Form/Form";
 
-export default function Home() {
+export default function CreateTrip() {
   return (
     <div id={styles.main}>
       <h1>Travel Planner</h1>

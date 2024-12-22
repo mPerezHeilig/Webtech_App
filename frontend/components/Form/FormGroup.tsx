@@ -24,10 +24,10 @@ export default function FormGroup({ formgroup }: { formgroup: FormProps }) {
         return (
             <div className={styles.formGroup}>
                 <label htmlFor={formgroup.name}>{formgroup.label}</label>
-                <select id={formgroup.name} name={formgroup.name}>
-                    <option value="" disabled selected>{formgroup.placeholder}</option>
-                    {formgroup.options?.map((option) => {
-                        return <option>{option}</option>
+                <select id={formgroup.name} name={formgroup.name} defaultValue="placeholder">
+                    <option key="-1" value="placeholder" disabled>{formgroup.placeholder}</option>
+                    {formgroup.options?.map((option, index) => {
+                        return <option key={index} value={option}>{option}</option>
                     })}
                 </select>
             </div>
