@@ -1,25 +1,25 @@
 // bearbeitet von Marcia Perez Heilig
 
 import styles from "@/css/tripcollection.module.css";
-import ListItem from "@/components/ListItem";
-import { Trip } from "@/types/TripProps";
-import { fetchTrips } from "@/services/showTripsService";
+import ListItem from "@/components/TripCollection/ListItem";
+import { TripCollectionProps } from "@/types/TripProps";
 
-export default async function TripCollection() {
-    const trips: Array<Trip> = await fetchTrips();
+export default function TripCollection({
+    trips,
+    onDeleteTrip,
+    onEditTrip,
+}: TripCollectionProps & {
+    onDeleteTrip: (id: number) => void;
+    onEditTrip: (id: number) => void;
+}) {
     return (
         <div className={styles.tripCollection}>
-            {trips.map((trip: Trip) => (
-                <ListItem 
-                    key={trip.id} 
-                    trip_info={{
-                        id: trip.id,
-                        name: trip.name,
-                        departure_date: trip.departure_date,
-                        return_date: trip.return_date,
-                        dest_country: trip.dest_country,
-                        tourguide: trip.tourguide,
-                    }} 
+            {trips.map((trip) => (
+                <ListItem
+                    key={trip.id}
+                    trip_info={trip}
+                    onDeleteTrip={() => onDeleteTrip(trip.id)}  
+                    onEditTrip={() => onEditTrip(trip.id)}
                 />
             ))}
         </div>

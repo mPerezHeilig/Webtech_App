@@ -6,4 +6,5 @@ export interface FormProps {
     name: string;
     placeholder?: string;
     options?: Array<string>;
+    value?: string;
 }

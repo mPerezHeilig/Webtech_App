@@ -1,9 +1,12 @@
 // bearbeitet von Marcia Perez Heilig
 
 import express, {Express} from 'express';
+import cors from 'cors'; 
 import router from './routes/trip_routes';
 
 const app: Express = express(); // initialize Express application
+
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use(express.json()); // parse JSON bodies
 app.use("/", router); // Use router for root path

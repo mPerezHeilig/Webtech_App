@@ -3,6 +3,7 @@
 import styles from '@/css/header.module.css';
 import Link from 'next/link';
 
+// NavBar component providing links to navigate between pages in the application
 export default function NavBar() {
     return (
         <div id={styles.navBar}>
