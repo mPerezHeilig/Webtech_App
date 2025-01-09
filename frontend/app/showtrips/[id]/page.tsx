@@ -3,6 +3,7 @@
 "use client";
 
 import styles from "@/css/page.module.css";
+import { use } from "react";
 import ListItem from "@/components/TripCollection/ListItem";
 import { deleteTripById } from "@/services/deleteTripsService";
 import { useRouter } from "next/navigation";
@@ -10,8 +11,9 @@ import { useTrip } from "@/hooks/useTrip";
 
 /* Component to display details of a single trip by ID.
 Provides options to edit or delete the trip. */
-export default function ShowTripByID({ params }: { params: { id: number } }) {
-    const id = params.id; // Extract trip ID from route parameters
+export default function ShowTripByID({ params }: { params: Promise<{ id: number }> }) {
+    const unwrapped = use(params);
+    const id = unwrapped.id; // Extract trip ID from route parameters
     const { trip, error, loading } = useTrip(id); // Use custom hook to manage trip data
     const router = useRouter();
   
@@ -37,9 +39,8 @@ export default function ShowTripByID({ params }: { params: { id: number } }) {
         <div id={styles.main}>
             {/* Conditional rendering to ensure trip is not null */}
             {trip && (
-              <ListItem key={trip.id} trip_info={trip} onDeleteTrip={handleDeleteTrip} />
+              <ListItem key={trip.id} trip_info={trip} onEditTrip={handleEditTrip} onDeleteTrip={handleDeleteTrip} />
             )}
-            <button onClick={handleEditTrip}>Edit Trip</button>
         </div>
     );
 }

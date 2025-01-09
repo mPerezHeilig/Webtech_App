@@ -15,3 +15,8 @@
     padding: 20px;
     width: fit-content;
 }
+
+.clickableTitle Link{
+    cursor: pointer;
+    text-decoration: none;
+}

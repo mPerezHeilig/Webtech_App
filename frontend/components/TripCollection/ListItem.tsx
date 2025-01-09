@@ -31,7 +31,9 @@ export default function ListItem({
 
     return (
         <div className={styles.listItem}>
-            <h3>{trip_info.name}</h3>
+            <Link href={`/showtrips/${trip_info.id}`}>
+                <h3 className={styles.clickableTitle}>{trip_info.name}</h3>
+            </Link>
             <p>Departure Date: {trip_info.departure_date}</p>
             <p>Return Date: {trip_info.return_date}</p>
             <p>Country: {trip_info.dest_country}</p>
