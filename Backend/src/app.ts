@@ -6,11 +6,14 @@ import router from './routes/trip_routes';
 
 const app: Express = express(); // initialize Express application
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000' })); // Enable CORS for frontend
+app.use(express.json()); // Parse JSON bodies
 
-app.use(express.json()); // parse JSON bodies
-app.use("/", router); // Use router for root path
-app.use(express.static('public')); // serve static files from the public directory
+// Serve static files from the 'public' directory
+// This should ideally come before your router if you are facing issues with static file access
+app.use(express.static('public'));
 
+// Use router for handling API routes
+app.use("/", router);
 
 export default app;
