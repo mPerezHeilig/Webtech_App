@@ -3,8 +3,12 @@
 import express, {Express} from 'express';
 import cors from 'cors'; 
 import router from './routes/trip_routes';
+import connectDatabase from './data/database';
 
 const app: Express = express(); // initialize Express application
+
+// Establish database connection
+//connectDatabase();
 
 app.use(cors({ origin: 'http://localhost:3000' })); // Enable CORS for frontend
 app.use(express.json()); // Parse JSON bodies

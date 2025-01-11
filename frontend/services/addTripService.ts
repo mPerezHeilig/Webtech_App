@@ -1,14 +1,9 @@
 // bearbeitet von Marcia Perez Heilig
 
 import axios from "axios";
+import { TripProps } from "@/types/TripProps";
 
-export async function addTrip(newTrip: {
-    name: string;
-    departure_date: string;
-    return_date: string;
-    dest_country: string;
-    tourguide: string;
-}) {
+export async function addTrip(newTrip: TripProps) {
     try {
         const response = await axios.post("http://localhost:8084/api/trips", newTrip);
         return response.data;
