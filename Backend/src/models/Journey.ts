@@ -1,6 +1,6 @@
 // bearbeitet von Marcia Perez Heilig
 
-import mongoose from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
 export interface ITrip extends Document{
     _id: number;
@@ -11,7 +11,7 @@ export interface ITrip extends Document{
     tourguide: string;
 }
 
-const tripSchema = new mongoose.Schema<ITrip>({
+const tripSchema = new Schema<ITrip>({
     _id: { type: Number, required: true },
     name: { type: String, required: true },
     dest_country: { type: String, required: true },
@@ -19,3 +19,6 @@ const tripSchema = new mongoose.Schema<ITrip>({
     return_date: { type: String, required: true },
     tourguide: { type: String, required: true },
 }, { _id: false }); // Prevent Mongoose from auto-creating _id
+
+const Journey = model<ITrip>("Journey", tripSchema);
+export default Journey;

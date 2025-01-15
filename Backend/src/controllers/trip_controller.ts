@@ -7,9 +7,9 @@ import { deleteTripById, deleteAllTrips } from '../services/deletetrip_services'
 import { saveTripId, fetchTripId, updateTrip } from '../services/edittrip_services';
 
  
-export const listTrips = (res: Response) => {
+export const listTrips = async (res: Response) => {
     try {
-        const all_trips = getAllTrips(); // Retrieve all trips from the service
+        const all_trips = await getAllTrips(); // Make sure to await the async call
         res.status(200).json(all_trips); // Send trips as a JSON response
     } catch (error: any) {
         // Handle errors while fetching trips
@@ -18,12 +18,12 @@ export const listTrips = (res: Response) => {
             details: error.message,
         });
     }
-    };
+};
 
-export const loadTrip = (req: Request, res: Response) => {
-    const tripId = parseInt(req.params.id); // Get trip ID
+export const loadTrip = async (req: Request, res: Response) => {
+    const tripId = parseInt(req.params.id); // Parse trip ID from request parameters
     try {
-        const tripById = getTripById(tripId); // Retrieve the trip by its ID
+        const tripById = await getTripById(tripId); // Asynchronously retrieve the trip by its ID
         if (!tripById) {
             // Handling if trip not found
             res.status(404).json({ error: `Trip with ID ${tripId} not found` });
@@ -40,24 +40,14 @@ export const loadTrip = (req: Request, res: Response) => {
     }
 };
 
-export const createTrip = (req: Request, res: Response) => {
+export const createTrip = async (req: Request, res: Response) => {
     try {
-        const { name, dest_country, departure_date, return_date, tourguide } = req.body;
-
-        // Validate user input
-        if (!name || !dest_country || !departure_date || !return_date || !tourguide) {
-            throw new Error("All fields are required: dest_country, departure_date, return_date, tourguide");
-        }
-
-        // Pass data to service function to create the trip
-        const newTrip = addNewTrip({ name, dest_country, departure_date, return_date, tourguide });
-
+        const newTrip = await addNewTrip(req.body);
         res.status(201).json({
             message: "Trip created successfully",
-            trip: newTrip, // Return the created trip
+            trip: newTrip,
         });
     } catch (error: any) {
-        // Handle validation or other errors
         res.status(400).json({ error: error.message });
     }
 };
@@ -99,10 +89,10 @@ export const removeTrip = (req: Request, res: Response) => {
     }
 }
 
-export const clearTrips = (req: Request, res: Response) => {
+export const clearTrips = async (req: Request, res: Response) => {
     try {
-        // Call the service to delete all trips and respond with success message
-        deleteAllTrips();
+        // Asynchronously call the service to delete all trips
+        await deleteAllTrips();
         res.status(200).json({ message: 'All trips deleted successfully' });
     } catch (error: any) {
         // Handle errors during deleting trips

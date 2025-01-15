@@ -8,7 +8,7 @@ import connectDatabase from './data/database';
 const app: Express = express(); // initialize Express application
 
 // Establish database connection
-//connectDatabase();
+connectDatabase();
 
 app.use(cors({ origin: 'http://localhost:3000' })); // Enable CORS for frontend
 app.use(express.json()); // Parse JSON bodies

@@ -75,10 +75,12 @@ export class Trip {
     }
 
     // Function to reset the ID counter
+    /*
     public static resetCurrentId(): void {
         Trip.current_id = 0;
     }
-
+    */
+   
     add_city(new_city: City): void {
         this._cities.push(new_city);
     }

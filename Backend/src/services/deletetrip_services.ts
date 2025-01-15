@@ -1,5 +1,6 @@
 // bearbeitet von Marcia Perez Heilig
 
+import Journey from '../models/Journey';
 import { Trip } from "../models/trip";
 import { trips } from "../data/trip_list";
 
@@ -15,7 +16,7 @@ export const deleteTripById = (id: number): boolean => {
     return false; // Trip not found
 };
 
-export const deleteAllTrips = () => {
-    trips.length = 0; // Clear all trips from the array
-    Trip.resetCurrentId(); // Reset ID counter
+export const deleteAllTrips = async (): Promise<void> => {
+    // Delete all documents from the 'journeys' collection
+    await Journey.deleteMany({});
 }
