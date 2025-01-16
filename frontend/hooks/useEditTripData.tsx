@@ -6,7 +6,7 @@ import { fetchCountryOptions, fetchTourguideOptions } from "@/services/formOptio
 import { TripProps } from "@/types/TripProps";
 
 //Custom hook to fetch data needed for editing a trip.
-export const useEditTripData = (id: number) => {
+export const useEditTripData = (id: string) => {
   const [trip, setTrip] = useState<TripProps | null>(null); // State for the trip data
   const [countryOptions, setCountryOptions] = useState<string[]>([]); // State for country options
   const [tourguideOptions, setTourguideOptions] = useState<string[]>([]); // State for tour guide options

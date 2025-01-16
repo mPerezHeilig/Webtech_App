@@ -1,7 +1,7 @@
 // bearbeitet von Marcia Perez Heilig
 
 export interface TripProps {
-    id: number;
+    id: string;
     name: string;
     departure_date: string;
     return_date: string;
@@ -11,7 +11,7 @@ export interface TripProps {
 
 export interface TripByIdProps {
     params: {
-        id: number;
+        id: string;
     };
 }
 

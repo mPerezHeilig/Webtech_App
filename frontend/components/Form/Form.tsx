@@ -21,11 +21,11 @@ export default function Form({
 }: {
     countryOptions: string[];
     tourguideOptions: string[];
-    tripId?: number; // tripId is optional, used when editing a trip
+    tripId?: string; // tripId is optional, used when editing a trip
 }) {
     // State to store form input values
     const [formData, setFormData] = useState({
-        id: 0,
+        id: "",
         name: "",
         departure_date: "",
         return_date: "",

@@ -6,7 +6,7 @@ import { TripProps } from "@/types/TripProps";
 
 // Hook to fetch and manage a single trip by ID.
 
-export const useTrip = (id: number) => {
+export const useTrip = (id: string) => {
     // State to store the trip data
     const [trip, setTrip] = useState<TripProps | null>(null);
     // State to track loading status

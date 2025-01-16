@@ -9,8 +9,8 @@ export default function TripCollection({
     onDeleteTrip,
     onEditTrip,
 }: TripCollectionProps & {
-    onDeleteTrip: (id: number) => void;
-    onEditTrip: (id: number) => void;
+    onDeleteTrip: (id: string) => void;
+    onEditTrip: (id: string) => void;
 }) {
     return (
         <div className={styles.tripCollection}>

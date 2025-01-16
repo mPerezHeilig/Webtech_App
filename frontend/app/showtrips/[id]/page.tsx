@@ -11,7 +11,7 @@ import { useTrip } from "@/hooks/useTrip";
 
 /* Component to display details of a single trip by ID.
 Provides options to edit or delete the trip. */
-export default function ShowTripByID({ params }: { params: Promise<{ id: number }> }) {
+export default function ShowTripByID({ params }: { params: Promise<{ id: string }> }) {
     const unwrapped = use(params);
     const id = unwrapped.id; // Extract trip ID from route parameters
     const { trip, error, loading } = useTrip(id); // Use custom hook to manage trip data
@@ -19,7 +19,7 @@ export default function ShowTripByID({ params }: { params: Promise<{ id: number 
   
     const handleDeleteTrip = async () => {
         try {
-            await deleteTripById(Number(id)); // Call the delete service
+            await deleteTripById(id); // Call the delete service
             alert("Trip deleted successfully!"); // Notify user of success
             router.push("/showtrips"); // Navigate back to the trips collection
         } catch (error) {

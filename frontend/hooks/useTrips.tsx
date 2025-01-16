@@ -34,7 +34,7 @@ export const useTrips = () => {
     }, []);
 
     // Deletes a trip by ID and updates the state to remove it from the list.
-    const deleteTrip = async (id: number) => {
+    const deleteTrip = async (id: string) => {
         try {
             // Call service to delete trip
             await deleteTripById(id);

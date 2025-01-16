@@ -12,7 +12,6 @@ export const getAllTrips = async (): Promise<any[]> => {
 };
 
 // Function to return a Trip object from the database matching the given ID
-export const getTripById = async (tripId: number): Promise<Trip | null> => {
-    // Use the Mongoose model to find the trip by its id
-    return await Journey.findOne({ _id: tripId });
+export const getTripById = async (tripId: string): Promise<Trip | null> => {
+    return await Journey.findById(tripId);
 };

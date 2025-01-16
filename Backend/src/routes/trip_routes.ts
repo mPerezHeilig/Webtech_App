@@ -1,7 +1,7 @@
 // bearbeitet von Marcia Perez Heilig
 
 import express, { Request,Response } from 'express';
-import { listTrips, loadTrip, createTrip, editTrip, removeTrip, clearTrips, postTripId, loadTripId } from '../controllers/trip_controller';
+import { listTrips, loadTrip, createTrip, editTrip, removeTrip, clearTrips } from '../controllers/trip_controller';
 import { listCountries, listTourguides } from '../controllers/form_controller';
 
 // Initialize Express Router
@@ -35,16 +35,6 @@ router.delete('/api/trips/:id', (req: Request, res: Response) => {
 // Delete all trips
 router.delete('/api/trips', (req: Request, res: Response) => {
     clearTrips(req, res);
-});
-
-// Route to save the selected trip ID
-router.post('/api/selectedTrip', (req: Request, res: Response) => {
-    postTripId(req, res);
-});
-
-// Route to get the saved selected trip ID
-router.get('/api/selectedTrip', (req: Request, res: Response) => {
-    loadTripId(req, res);
 });
 
 // Route to get form country options

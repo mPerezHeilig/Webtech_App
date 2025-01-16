@@ -14,7 +14,7 @@ export async function deleteAllTrips(): Promise<void> {
     };
 }
 
-export async function deleteTripById(id: number): Promise<void> {
+export async function deleteTripById(id: string): Promise<void> {
     if (confirm('Are you sure you want to delete this trip?')) {
         try {
             await axios.delete(`http://localhost:8084/api/trips/${id}`);

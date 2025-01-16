@@ -1,8 +1,8 @@
 // bearbeitet von Marcia Perez Heilig
 
 import Journey from '../models/Journey';
-import { Trip } from "../models/trip";
 import { ITrip } from '../models/Journey';
+import { Trip } from "../models/trip";
 
 export const addNewTrip = async (json: any): Promise<ITrip> => {
     // Extracts the required trip details
@@ -13,7 +13,6 @@ export const addNewTrip = async (json: any): Promise<ITrip> => {
 
     // Map Trip object to the Journey model
     const newTrip = new Journey({
-        _id: trip.id,
         name: trip.name,
         dest_country: trip.dest_country,
         departure_date: trip.departure_date,

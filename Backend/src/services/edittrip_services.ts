@@ -1,31 +1,21 @@
 // bearbeitet von Marcia Perez Heilig
 
-import { Trip } from "../models/trip";
-import { trips } from "../data/trip_list";
+import Journey from '../models/Journey';
+import { ITrip } from '../models/Journey';
+import mongoose from 'mongoose';
 
-let selectedTripId: number;
-
-export const saveTripId = (tripId: number): void => {
-    selectedTripId = tripId;
-}
-
-export const fetchTripId = (): number | null => {
-    return selectedTripId || null; // Return null if `selectedTripId` is undefined
-};
-
-export const updateTrip = (id: number, name: string, departure_date: string, return_date: string, dest_country: string, tourguide: string): Trip | null => {
-    const updatedTrip = trips.find(trip => trip.id === id);
-
-    if (!updatedTrip) {
-        return null;
-    }
-
-    // Apply updates to the trip
-    updatedTrip.name = name;
-    updatedTrip.departure_date = departure_date;
-    updatedTrip.return_date = return_date;
-    updatedTrip.dest_country = dest_country;
-    updatedTrip.tourguide = tourguide;
-
-    return updatedTrip;
+export const updateTrip = async (
+    id: string, 
+    name: string, 
+    departure_date: string, 
+    return_date: string, 
+    dest_country: string, 
+    tourguide: string): Promise<ITrip | null> => {
+    // Convert string ID to ObjectId and update the trip in the database
+    const result = await Journey.findByIdAndUpdate(
+        new mongoose.Types.ObjectId(id),
+        { $set: { name, departure_date, return_date, dest_country, tourguide } },
+        { new: true } // Return the updated document
+    );
+    return result;
 };

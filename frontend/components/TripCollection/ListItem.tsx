@@ -14,8 +14,8 @@ export default function ListItem({
     onEditTrip,  // Add the edit handler
 }: {
     trip_info: TripProps;
-    onDeleteTrip?: (id: number) => void;
-    onEditTrip?: (id: number) => void;  // Add the edit handler
+    onDeleteTrip?: (id: string) => void;
+    onEditTrip?: (id: string) => void;  // Add the edit handler
 }) {
     const handleDeleteClick = () => {
         if (onDeleteTrip) {

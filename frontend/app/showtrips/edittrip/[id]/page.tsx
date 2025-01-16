@@ -31,7 +31,7 @@ export default function EditTrip({ params }: { params: { id: string } }) {
         const loadData = async () => {
             try {
                 // Fetch the trip by ID
-                const fetchedTrip = await fetchTripById(Number(params.id));
+                const fetchedTrip = await fetchTripById(params.id);
                 const countries = await fetchCountryOptions(); // Fetch country options
                 const tourguides = await fetchTourguideOptions(); // Fetch tourguide options
 
@@ -75,7 +75,7 @@ export default function EditTrip({ params }: { params: { id: string } }) {
                 <Form 
                     countryOptions={countryOptions || []} 
                     tourguideOptions={tourguideOptions || []} 
-                    tripId={Number(params.id)} // Pass tripId for editing
+                    tripId={params.id} // Pass tripId for editing
                 />
             </div>
         </div>

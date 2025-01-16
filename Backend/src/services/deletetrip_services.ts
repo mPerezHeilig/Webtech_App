@@ -1,19 +1,13 @@
 // bearbeitet von Marcia Perez Heilig
 
 import Journey from '../models/Journey';
-import { Trip } from "../models/trip";
-import { trips } from "../data/trip_list";
+import mongoose from 'mongoose';
 
-export const deleteTripById = (id: number): boolean => {
-    // Find the index of the trip with the given ID
-    const index = trips.findIndex(trip => trip.id === id);
+export const deleteTripById = async (id: string): Promise<boolean> => {
+    // Convert string ID to ObjectId
+    const result = await Journey.deleteOne({ _id: new mongoose.Types.ObjectId(id) });
 
-    if (index !== -1) {
-        trips.splice(index, 1); // Remove the trip
-        return true;
-    }
-
-    return false; // Trip not found
+    return result.deletedCount > 0;  // returns true if a document was deleted
 };
 
 export const deleteAllTrips = async (): Promise<void> => {

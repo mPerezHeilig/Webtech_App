@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { getAllTrips, getTripById } from '../services/showtrip_services';
 import { addNewTrip } from '../services/createtrip_services';
 import { deleteTripById, deleteAllTrips } from '../services/deletetrip_services';
-import { saveTripId, fetchTripId, updateTrip } from '../services/edittrip_services';
+import { updateTrip } from '../services/edittrip_services';
 
  
 export const listTrips = async (res: Response) => {
@@ -21,9 +21,9 @@ export const listTrips = async (res: Response) => {
 };
 
 export const loadTrip = async (req: Request, res: Response) => {
-    const tripId = parseInt(req.params.id); // Parse trip ID from request parameters
+    const tripId = req.params.id;
     try {
-        const tripById = await getTripById(tripId); // Asynchronously retrieve the trip by its ID
+        const tripById = await getTripById(tripId);
         if (!tripById) {
             // Handling if trip not found
             res.status(404).json({ error: `Trip with ID ${tripId} not found` });
@@ -52,14 +52,12 @@ export const createTrip = async (req: Request, res: Response) => {
     }
 };
 
-export const editTrip = (req: Request, res: Response) => {
-    const id = parseInt(req.params.id); // Get trip ID
-    // Get updated trip details from the request body
+export const editTrip = async (req: Request, res: Response) => {
+    const id = req.params.id;
     const { name, departure_date, return_date, dest_country, tourguide } = req.body;
 
     try {
-        // Update the trip
-        const updatedTrip = updateTrip(id, name, departure_date, return_date, dest_country, tourguide);
+        const updatedTrip = await updateTrip(id, name, departure_date, return_date, dest_country, tourguide);
 
         if (!updatedTrip) {
             // Handling if trip not found
@@ -77,15 +75,21 @@ export const editTrip = (req: Request, res: Response) => {
     }
 };
 
-export const removeTrip = (req: Request, res: Response) => {
-    const id = parseInt(req.params.id); // Get trip ID
+export const removeTrip = async (req: Request, res: Response) => {
+    const id = req.params.id;
 
-    if (deleteTripById(id)) {
-        // Delete trip by ID and respond with success message
-        res.status(200).json({ message: `Trip with ID ${id} deleted successfully` });
-    } else {
-        // Handling if trip not found
-        res.status(404).json({ message: `Trip with ID ${id} not found` });
+    try {
+        const success = await deleteTripById(id);
+        if (success) {
+            // Delete trip by ID and respond with success message
+            res.status(200).json({ message: `Trip with ID ${id} deleted successfully` });
+        } else {
+            // Handling if trip not found
+            res.status(404).json({ message: `Trip with ID ${id} not found` });
+        }
+    } catch (error: any) {
+        // Handle potential errors, such as invalid ObjectId formats
+        res.status(400).json({ message: `Error deleting trip with ID ${id}`, error: error.message });
     }
 }
 
@@ -99,36 +103,3 @@ export const clearTrips = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error occurred while deleting all trips', error: error.message });
     }
 }
-
-export const postTripId = (req: Request, res: Response) => {
-    try {
-        const { tripId } = req.body; // Get trip ID from the request body
-        if (!tripId) {
-            // Validate trip ID
-            return res.status(400).json({ message: 'Invalid trip ID' });
-        }
-
-        // Save the trip ID for later use and respond with success message
-        saveTripId(tripId); 
-        res.status(200).json({ message: 'Trip ID saved successfully' });
-    } catch (error: any) {
-        // Handle errors while saving trip ID
-        res.status(500).json({ message: 'Error saving trip ID', error: error.message });
-    }
-};
-
-export const loadTripId = (req: Request, res: Response) => {
-    try {
-        const tripId = fetchTripId(); // Retrieve saved trip ID
-        if (tripId === null) {
-            // Handling if trip ID not found
-            return res.status(404).json({ message: 'No trip ID found' });
-        }
-
-        // Respond with the retrieved trip ID
-        res.status(200).json({ tripId });
-    } catch (error: any) {
-        // Handle errors while fetching trip ID
-        res.status(500).json({ message: 'Error fetching trip ID', error: error.message });
-    }
-};
