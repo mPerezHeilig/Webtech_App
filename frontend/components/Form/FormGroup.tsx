@@ -1,19 +1,7 @@
 // bearbeitet von Marcia Perez Heilig
 
 import styles from "@/css/form.module.css";
-import { FormProps } from "@/types/FormProps";
-
-interface FormGroupProps {
-    formgroup: {
-      label: string;
-      type?: string;
-      name: string;
-      placeholder?: string;
-      options?: Array<string>;
-    };
-    value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  }
+import { FormGroupProps } from "@/types/FormProps";
   
   export default function FormGroup({ formgroup, value, onChange }: FormGroupProps) {
     if (formgroup.type === "text" || formgroup.type === "date") {
@@ -51,5 +39,5 @@ interface FormGroupProps {
       );
     }
   
-    return null; // Handle unsupported types gracefully
+    return null;
   }

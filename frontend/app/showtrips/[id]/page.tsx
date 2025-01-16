@@ -18,14 +18,7 @@ export default function ShowTripByID({ params }: { params: Promise<{ id: string 
     const router = useRouter();
   
     const handleDeleteTrip = async () => {
-        try {
-            await deleteTripById(id); // Call the delete service
-            alert("Trip deleted successfully!"); // Notify user of success
-            router.push("/showtrips"); // Navigate back to the trips collection
-        } catch (error) {
-            console.error(`Failed to delete trip with ID ${id}:`, error); 
-            alert("Failed to delete trip. Please try again.");
-        }
+        await deleteTripById(id); // Call the delete service
     };
   
     const handleEditTrip = () => {

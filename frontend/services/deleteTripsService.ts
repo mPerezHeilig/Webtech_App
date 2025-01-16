@@ -18,6 +18,7 @@ export async function deleteTripById(id: string): Promise<void> {
     if (confirm('Are you sure you want to delete this trip?')) {
         try {
             await axios.delete(`http://localhost:8084/api/trips/${id}`);
+            alert("Trip deleted successfully!");
         } catch (error) {
             console.error(`Error deleting trip with ID ${id}:`, error);
             alert('Failed to delete trip. Please try again.');

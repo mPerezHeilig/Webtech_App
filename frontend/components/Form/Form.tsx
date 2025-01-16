@@ -33,29 +33,37 @@ export default function Form({
         tourguide: "",
     });
 
+    const [error, setError] = useState("");
+
     const [isEditing, setIsEditing] = useState(false); // Flag to track whether we're editing an existing trip
 
-    // Fetch the trip data if tripId is provided (i.e., we're editing)
+    // Fetch the trip data if tripId is provided (i.e., if editing)
     useEffect(() => {
-        if (tripId) {
-            const loadTripData = async () => {
-                const trip = await fetchTripById(tripId);
-                if (trip) {
-                    setFormData({
-                        id: trip.id,
-                        name: trip.name,
-                        departure_date: trip.departure_date,
-                        return_date: trip.return_date,
-                        dest_country: trip.dest_country,
-                        tourguide: trip.tourguide,
-                    });
-                    setIsEditing(true); // Set editing mode to true
+        async function loadTripData() {
+            try {
+                if (tripId) {
+                    const trip = await fetchTripById(tripId);
+                    if (trip) {
+                        setFormData({
+                            id: trip.id,
+                            name: trip.name,
+                            departure_date: trip.departure_date,
+                            return_date: trip.return_date,
+                            dest_country: trip.dest_country,
+                            tourguide: trip.tourguide,
+                        });
+                        setIsEditing(true); // Set editing mode to true
+                    }
                 }
-            };
-
+            } catch (error) {
+                setError("Failed to load trip data.");
+            }
+        }
+    
+        if (tripId) {
             loadTripData();
         }
-    }, [tripId]);
+    }, [tripId]); 
 
     // Updates the form data state when an input value changes.
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

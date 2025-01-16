@@ -1,10 +1,10 @@
 // bearbeitet von Marcia Perez Heilig
 
-import { Trip }from '../models/trip';
 import Journey from '../models/Journey';
+import { ITrip } from '../models/Journey';
 
 // Retrieve all trips from the database
-export const getAllTrips = async (): Promise<any[]> => {
+export const getAllTrips = async (): Promise<ITrip[]> => {
     console.log('getAllTrips called');
     const trips = await Journey.find();
     
@@ -12,6 +12,6 @@ export const getAllTrips = async (): Promise<any[]> => {
 };
 
 // Function to return a Trip object from the database matching the given ID
-export const getTripById = async (tripId: string): Promise<Trip | null> => {
+export const getTripById = async (tripId: string): Promise<ITrip | null> => {
     return await Journey.findById(tripId);
 };

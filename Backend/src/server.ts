@@ -15,10 +15,8 @@ app.listen(port, () => {
 });
 
 // establish database connection
-const connectDatabase = () => {
-    mongoose.connect(mongo_uri || "").then(() => {
-        console.log('Connected to database');
-    }).catch((error) => {
-        console.log('Database connection failed', error);
-    });
-};
+mongoose.connect(mongo_uri || "").then(() => {
+    console.log('Connected to database');
+}).catch((error) => {
+    console.log('Database connection failed', error);
+});

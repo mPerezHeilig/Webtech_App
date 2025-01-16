@@ -5,16 +5,16 @@ import {City} from "./city";
 export class Trip {
     private _name: string;
     private _dest_country: string;
-    private _departure_date: string;
-    private _return_date: string;
+    private _departure_date: Date;
+    private _return_date: Date;
     private _cities: Array<City>;
     private _tourguide: string;
 
     constructor(name: string, country: string, depature_date: string, return_date: string, tourguide: string){
         this._name = name;
         this._dest_country = country;
-        this._departure_date = depature_date;
-        this._return_date = return_date;
+        this._departure_date = new Date(depature_date);
+        this._return_date = new Date (return_date);
         this._tourguide = tourguide;
         this._cities = [];
     }
@@ -27,11 +27,11 @@ export class Trip {
         return this._dest_country;
     }
 
-    get departure_date(): string {
+    get departure_date(): Date {
         return this._departure_date;
     }
 
-    get return_date(): string {
+    get return_date(): Date {
         return this._return_date;
     }
 
@@ -52,11 +52,11 @@ export class Trip {
     }
 
     set departure_date(new_departure_date: string) {
-        this._departure_date = new_departure_date;
+        this._departure_date = new Date(new_departure_date);
     }
 
     set return_date(new_return_date: string) {
-        this._return_date = new_return_date;
+        this._return_date = new Date(new_return_date);
     }
 
     set tourguide(new_tourguide: string) {
