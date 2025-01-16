@@ -9,8 +9,8 @@ export async function fetchTrips() {
         return response.data.map((trip: any) => ({
             id: trip._id,
             name: trip.name,
-            departure_date: trip.departure_date,
-            return_date: trip.return_date,
+            departure_date: formatDate(trip.departure_date) as string,
+            return_date: formatDate(trip.return_date) as string,
             dest_country: trip.dest_country,
             tourguide: trip.tourguide,
         }));
@@ -39,8 +39,8 @@ export async function fetchTripById(id: string): Promise<TripProps | null> {
         return {
             id: trip._id,
             name: trip.name,
-            departure_date: trip.departure_date,
-            return_date: trip.return_date,
+            departure_date: formatDate(trip.departure_date) as string,
+            return_date: formatDate(trip.return_date) as string,
             dest_country: trip.dest_country,
             tourguide: trip.tourguide,
         };
@@ -48,4 +48,9 @@ export async function fetchTripById(id: string): Promise<TripProps | null> {
         console.error(`Error fetching trip with ID ${id}:`, error);
         return null;
     }
+}
+
+function formatDate(date: string | undefined): string | undefined {
+    if (!date) return undefined;
+    return new Date(date).toISOString().slice(0, 10);
 }
