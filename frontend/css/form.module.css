@@ -18,3 +18,10 @@
     border: none;
     border-radius: 10px;
 }
+
+.errorText {
+    color: red;
+    text-decoration: underline;
+    font-size: 0.5em;
+    text-align: left;
+}

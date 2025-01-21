@@ -5,7 +5,6 @@ import { ITrip } from '../models/Journey';
 
 // Retrieve all trips from the database
 export const getAllTrips = async (): Promise<ITrip[]> => {
-    console.log('getAllTrips called');
     const trips = await Journey.find();
     
     return trips;
