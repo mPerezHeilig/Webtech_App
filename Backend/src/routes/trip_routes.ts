@@ -61,6 +61,8 @@ router.post('/api/signin', (req: Request, res: Response) => {
 });
 
 // Token validation
-router.get("/api/auth/validate", authenticateToken);
+router.get("/api/auth/validate", authenticateToken, (req: Request, res: Response) => {
+    res.status(200).json({ message: "Token verification endpoint is reachable."});
+});
 
 export default router;

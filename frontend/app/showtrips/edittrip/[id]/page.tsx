@@ -10,6 +10,7 @@ import { updateTrip } from "@/services/updateTripService";
 import Form from "@/components/Form/Form";
 import { useRouter } from "next/navigation";
 import { TripProps } from "@/types/TripProps";
+import RouteProtector from "@/components/RouteProtector";
 
 /* Page component for editing a trip by its ID.
 - Fetches the trip, country options, and tour guide options.
@@ -68,16 +69,18 @@ export default function EditTrip({ params }: { params: { id: string } }) {
 
     // Render the form with preloaded data and options
     return (
-        <div id={styles.main}>
-            <h1>Travel Planner</h1>
-            <div className={styles.displaycard}>
-                <h2>Edit Trip</h2>
-                <Form 
-                    countryOptions={countryOptions || []} 
-                    tourguideOptions={tourguideOptions || []} 
-                    tripId={params.id} // Pass tripId for editing
-                />
+        <RouteProtector>
+            <div id={styles.main}>
+                <h1>Travel Planner</h1>
+                <div className={styles.displaycard}>
+                    <h2>Edit Trip</h2>
+                    <Form 
+                        countryOptions={countryOptions || []} 
+                        tourguideOptions={tourguideOptions || []} 
+                        tripId={params.id} // Pass tripId for editing
+                    />
+                </div>
             </div>
-        </div>
+        </RouteProtector>
     );
 }

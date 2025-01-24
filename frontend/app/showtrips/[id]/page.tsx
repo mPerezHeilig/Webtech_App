@@ -8,31 +8,62 @@ import ListItem from "@/components/TripCollection/ListItem";
 import { deleteTripById } from "@/services/deleteTripsService";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/hooks/useTrip";
+import RouteProtector from "@/components/RouteProtector";
 
-/* Component to display details of a single trip by ID.
-Provides options to edit or delete the trip. */
 export default function ShowTripByID({ params }: { params: Promise<{ id: string }> }) {
+    return (
+        <RouteProtector>
+            <ShowTripByIDContent params={params} />
+        </RouteProtector>
+    );
+}
+
+function ShowTripByIDContent({ params }: { params: Promise<{ id: string }> }) {
     const unwrapped = use(params);
-    const id = unwrapped.id; // Extract trip ID from route parameters
-    const { trip, error, loading } = useTrip(id); // Use custom hook to manage trip data
+    const id = unwrapped.id;
+    const { trip, error, loading } = useTrip(id);
     const router = useRouter();
-  
+
     const handleDeleteTrip = async () => {
-        await deleteTripById(id); // Call the delete service
+        const confirmation = confirm("Are you sure you want to delete this trip?");
+        if (confirmation) {
+            await deleteTripById(id);
+            alert("Trip deleted successfully!");
+            router.push("/showtrips");
+        }
     };
-  
+
     const handleEditTrip = () => {
-        router.push(`/edittrips/${id}`); // Navigate to the edit trip page
+        router.push(`/edittrips/${id}`);
     };
-  
-    if (loading) return <div id={styles.main}><p>Loading...</p></div>;
-    if (error) return <div id={styles.main}><p>{error}</p></div>;
-  
+
+    if (loading) {
+        return (
+            <div id={styles.main}>
+                <p>Loading trip details...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div id={styles.main}>
+                <p>Error loading trip: {error}. Please try again later.</p>
+            </div>
+        );
+    }
+
     return (
         <div id={styles.main}>
-            {/* Conditional rendering to ensure trip is not null */}
-            {trip && (
-              <ListItem key={trip.id} trip_info={trip} onEditTrip={handleEditTrip} onDeleteTrip={handleDeleteTrip} />
+            {trip ? (
+                <ListItem
+                    key={trip.id}
+                    trip_info={trip}
+                    onEditTrip={handleEditTrip}
+                    onDeleteTrip={handleDeleteTrip}
+                />
+            ) : (
+                <p>Trip not found.</p>
             )}
         </div>
     );

@@ -16,7 +16,7 @@ function getAuthHeader() {
 export async function fetchTrips() {
     try {
         const response = await axios.get("http://localhost:8084/api/trips", {
-            headers: getAuthHeader(), // Add Authorization header
+            headers: getAuthHeader(),
         });
 
         return response.data.map((trip: any) => ({
@@ -48,7 +48,7 @@ export async function getTrips() {
 export async function fetchTripById(id: string): Promise<TripProps | null> {
     try {
         const response = await axios.get(`http://localhost:8084/api/trips/${id}`, {
-            headers: getAuthHeader(), // Add Authorization header
+            headers: getAuthHeader(),
         });
 
         const trip = response.data;
