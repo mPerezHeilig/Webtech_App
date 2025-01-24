@@ -12,49 +12,44 @@ import { useRouter } from "next/navigation";
 import { TripProps } from "@/types/TripProps";
 import RouteProtector from "@/components/RouteProtector";
 
-/* Page component for editing a trip by its ID.
-- Fetches the trip, country options, and tour guide options.
-- Handles the form submission to update the trip. */
+/* Page component for editing a trip by its ID */
 export default function EditTrip({ params }: { params: { id: string } }) {
-    // State to store the trip data
+    return (
+        <RouteProtector>
+            <EditTripContent params={params} />
+        </RouteProtector>
+    );
+}
+
+function EditTripContent({ params }: { params: { id: string } }) {
     const [trip, setTrip] = useState<TripProps | null>(null);
-    // State to store country options
     const [countryOptions, setCountryOptions] = useState<string[]>([]);
-    // State to store tourguide options
     const [tourguideOptions, setTourguideOptions] = useState<string[]>([]);
-    // State for handling errors
     const [error, setError] = useState<string | null>(null);
-    // Router instance for navigation
     const router = useRouter();
 
-    // Fetch all necessary data when the component mounts
     useEffect(() => {
         const loadData = async () => {
             try {
-                // Fetch the trip by ID
                 const fetchedTrip = await fetchTripById(params.id);
-                const countries = await fetchCountryOptions(); // Fetch country options
-                const tourguides = await fetchTourguideOptions(); // Fetch tourguide options
+                const countries = await fetchCountryOptions();
+                const tourguides = await fetchTourguideOptions();
 
-                // Update the trip state
                 setTrip(fetchedTrip);
-                setCountryOptions(countries || []); // Update the country options state
-                setTourguideOptions(tourguides || []); // Update the tour guide options state
+                setCountryOptions(countries || []);
+                setTourguideOptions(tourguides || []);
             } catch (err) {
                 setError("Failed to load data for editing.");
             }
         };
 
-        loadData(); // Trigger the fetch
-    }, [params.id]); // Run effect when the trip id changes
+        loadData();
+    }, [params.id]);
 
-    // Handles the form submission to update the trip
     const handleUpdateTrip = async (updatedTrip: TripProps) => {
         try {
-            // Call the service to update the trip
             await updateTrip(updatedTrip);
             alert("Trip successfully updated!");
-            // Redirect to the trips collection page
             router.push("/showtrips");
         } catch (err) {
             alert("Failed to update trip. Please try again.");
@@ -62,25 +57,33 @@ export default function EditTrip({ params }: { params: { id: string } }) {
         }
     };
 
-    // Prevent rendering before trip data is fetched
-    if (error) return <div>Error: {error}</div>;
-    // Render a loading state until all data is fetched
-    if (!trip || !countryOptions.length || !tourguideOptions.length) return <div>Loading...</div>;
-
-    // Render the form with preloaded data and options
-    return (
-        <RouteProtector>
+    if (error) {
+        return (
             <div id={styles.main}>
-                <h1>Travel Planner</h1>
-                <div className={styles.displaycard}>
-                    <h2>Edit Trip</h2>
-                    <Form 
-                        countryOptions={countryOptions || []} 
-                        tourguideOptions={tourguideOptions || []} 
-                        tripId={params.id} // Pass tripId for editing
-                    />
-                </div>
+                <p>Error: {error}</p>
             </div>
-        </RouteProtector>
+        );
+    }
+
+    if (!trip || !countryOptions.length || !tourguideOptions.length) {
+        return (
+            <div id={styles.main}>
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    return (
+        <div id={styles.main}>
+            <h1>Travel Planner</h1>
+            <div className={styles.displaycard}>
+                <h2>Edit Trip</h2>
+                <Form
+                    countryOptions={countryOptions || []}
+                    tourguideOptions={tourguideOptions || []}
+                    tripId={params.id}
+                />
+            </div>
+        </div>
     );
 }
