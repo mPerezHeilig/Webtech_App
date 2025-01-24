@@ -11,12 +11,15 @@
 
 .tripForm input[type="text"],
 .tripForm input[type="date"],
+.tripForm input[type="password"],
 .tripForm select {
     background-color: #FFFFF4;
     color:#35421C;
     padding: 10px;
     border: none;
     border-radius: 10px;
+    min-width: 300px;
+    margin-left: 20px;
 }
 
 .errorText {

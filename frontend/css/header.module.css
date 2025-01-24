@@ -20,3 +20,12 @@
     margin: 20px;
     padding: 10px 56px;
 }
+
+.logLink {
+    background-color: #35421C;
+    color:#FFFFF4;
+    text-decoration: none;
+    border-radius: 41px;
+    margin: 20px;
+    padding: 10px 56px;
+}

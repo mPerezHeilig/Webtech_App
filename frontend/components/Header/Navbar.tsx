@@ -9,6 +9,7 @@ export default function NavBar() {
         <div id={styles.navBar}>
             <Link href="/showtrips" className={styles.navLink}>Show Trips</Link>
             <Link href="/createtrip" className={styles.navLink}>Create Trips</Link>
+            <Link href="/signin" className={styles.logLink}>Sign In</Link>
         </div>
     )
 }

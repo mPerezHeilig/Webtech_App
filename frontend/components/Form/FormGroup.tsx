@@ -8,7 +8,7 @@ export default function FormGroup({ formgroup, value, onChange, error }: FormGro
       <div className={styles.formGroup}>
           <label htmlFor={formgroup.name}>{formgroup.label}</label>
 
-          {formgroup.type === "text" || formgroup.type === "date" ? (
+          {formgroup.type === "text" || formgroup.type === "date" || formgroup.type === "password" ? (
               <input 
                   type={formgroup.type} 
                   id={formgroup.name} 
@@ -16,6 +16,7 @@ export default function FormGroup({ formgroup, value, onChange, error }: FormGro
                   placeholder={formgroup.placeholder}
                   value={value}
                   onChange={onChange}
+                  required
               />
           ) : formgroup.options ? (
               <select 
@@ -23,6 +24,7 @@ export default function FormGroup({ formgroup, value, onChange, error }: FormGro
                   name={formgroup.name} 
                   value={value}
                   onChange={onChange}
+                  required
               >
                   <option value="placeholder" disabled>{formgroup.placeholder}</option>
                   {formgroup.options.map((option, index) => (

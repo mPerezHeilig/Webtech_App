@@ -7,7 +7,7 @@ import TripCollection from "@/components/TripCollection/TripCollection";
 import Button from "@/components/Buttons/Button";
 import DeleteAllTripsButton from "@/components/Buttons/DeleteAllTripsButton";
 import Link from "next/link";
-import { useTrips } from "@/hooks/useTrips"; // Custom hook for trip logic
+import { useTrips } from "@/hooks/useTrips";
 
 /* Component to display the trip collection page.
 Fetches and manages trip data, displays a list of trips, and provides controls for deleting trips. */
@@ -28,7 +28,7 @@ export default function ShowTrips() {
     if (error) return <div>Error loading trips: {error}. Please try again later.</div>;
 
     return (
-      <div id={styles.main}>
+    <div id={styles.main}>
         <h1>Travel Planner</h1>
         <div className={styles.displaycard}>
             <h2>Trip Collection</h2>
@@ -59,6 +59,6 @@ export default function ShowTrips() {
                 </>
             )}
         </div>
-      </div>
+    </div>
     );
 }
